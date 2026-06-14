@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QentAI // agentic AI</title>
+<meta name="description" content="QentAI — an agentic AI research initiative. Autonomous agents that reason, act, and evolve, built with every technique that works, toward systems that genuinely advance science." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060109;
+    --ink: #0a0414;
+    --cyan: #00f0ff;
+    --magenta: #ff2d95;
+    --purple: #b14bff;
+    --amber: #ffb627;
+    --text: #e8d9ff;
+    --muted: #9a7fc7;
+    --faint: #5a4a7a;
+    --grid: rgba(177,75,255,0.25);
+    --display: "Orbitron", sans-serif;
+    --body: "Chakra Petch", sans-serif;
+    --mono: "Share Tech Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    background: repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.18) 2px 4px);
+    mix-blend-mode: multiply; opacity: .5;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+  ::selection { background: var(--magenta); color: #fff; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(6,1,9,0.75); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(177,75,255,0.3);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-family: var(--display); font-weight: 900; font-size: 22px; letter-spacing: 3px; color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.7); }
+  .brand b { color: var(--magenta); text-shadow: 0 0 12px rgba(255,45,149,0.8); }
+  .nav-links a { font-family: var(--mono); color: var(--muted); text-decoration: none; margin-left: 26px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: .2s; }
+  .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 10px rgba(0,240,255,0.8); }
+
+  .hero { position: relative; min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: .28; filter: saturate(1.4) hue-rotate(280deg) contrast(1.1); mix-blend-mode: screen; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 38%, rgba(255,45,149,0.22), transparent 60%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,240,255,0.15), transparent 70%),
+      var(--bg);
+  }
+  .sun { position: absolute; left: 50%; top: 30%; transform: translate(-50%,-50%); width: 360px; height: 360px; border-radius: 50%; z-index: 0;
+    background: linear-gradient(#ffd84d, #ff2d95 55%, #b14bff);
+    box-shadow: 0 0 120px rgba(255,45,149,0.55);
+    -webkit-mask-image: repeating-linear-gradient(#000 0 14px, transparent 14px 20px);
+    mask-image: repeating-linear-gradient(#000 0 14px, transparent 14px 20px);
+    opacity: .85;
+  }
+  .floor { position: absolute; left: -10%; right: -10%; bottom: 0; height: 45%; z-index: 1; transform: perspective(360px) rotateX(68deg); transform-origin: bottom;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 44px 44px;
+    animation: roll 1.2s linear infinite;
+    -webkit-mask-image: linear-gradient(transparent, #000 60%);
+    mask-image: linear-gradient(transparent, #000 60%);
+  }
+  @keyframes roll { to { background-position: 0 44px; } }
+
+  .hero-content { position: relative; z-index: 3; }
+  .badge { font-family: var(--mono); font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,240,255,0.4); padding: 7px 18px; border-radius: 2px; background: rgba(0,240,255,0.05); }
+  h1 { font-family: var(--display); font-weight: 900; font-size: clamp(38px, 8vw, 88px); line-height: .98; letter-spacing: 2px; margin: 30px 0 0; text-transform: uppercase; }
+  h1 .c { color: var(--cyan); text-shadow: 0 0 18px rgba(0,240,255,0.8), 0 0 40px rgba(0,240,255,0.4); }
+  h1 .m { color: var(--magenta); text-shadow: 0 0 18px rgba(255,45,149,0.9), 0 0 44px rgba(255,45,149,0.5); }
+  .moto { font-family: var(--display); font-weight: 500; font-size: clamp(16px,3vw,26px); letter-spacing: 1px; margin: 22px auto 0; color: var(--text); text-shadow: 0 0 16px rgba(177,75,255,0.6); }
+  .sub { max-width: 620px; margin: 18px auto 0; color: var(--muted); font-size: clamp(15px,2.3vw,18px); font-weight: 300; letter-spacing: .5px; }
+  .cta { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 14px 30px; border-radius: 2px; transition: .2s; border: 1px solid; }
+  .btn.cyan { color: var(--cyan); border-color: var(--cyan); background: rgba(0,240,255,0.06); box-shadow: 0 0 18px rgba(0,240,255,0.25), inset 0 0 18px rgba(0,240,255,0.08); }
+  .btn.cyan:hover { background: var(--cyan); color: #04141a; box-shadow: 0 0 30px rgba(0,240,255,0.7); }
+  .btn.mag { color: var(--magenta); border-color: var(--magenta); }
+  .btn.mag:hover { background: var(--magenta); color: #fff; box-shadow: 0 0 30px rgba(255,45,149,0.7); }
+
+  section { padding: 90px 0; position: relative; border-top: 1px solid rgba(177,75,255,0.18); }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--magenta); }
+  h2 { font-family: var(--display); font-weight: 700; font-size: clamp(26px,4.5vw,42px); letter-spacing: 2px; text-transform: uppercase; margin: 14px 0 16px; }
+  .lead { color: var(--muted); max-width: 700px; font-size: 17px; font-weight: 300; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 20px; margin-top: 44px; }
+  .card { position: relative; background: linear-gradient(160deg, rgba(177,75,255,0.08), rgba(10,4,20,0.6)); border: 1px solid rgba(177,75,255,0.35); border-radius: 4px; padding: 30px; transition: .25s; overflow: hidden; }
+  .card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--magenta)); opacity: .6; }
+  .card:hover { transform: translateY(-5px); border-color: var(--cyan); box-shadow: 0 0 30px rgba(0,240,255,0.25); }
+  .card .num { font-family: var(--mono); font-size: 13px; color: var(--cyan); letter-spacing: 2px; }
+  .card h3 { font-family: var(--display); font-weight: 500; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; margin: 14px 0 12px; }
+  .card p { color: var(--muted); font-size: 15px; font-weight: 300; }
+
+  .engine { margin-top: 40px; background: rgba(10,4,20,0.6); border: 1px solid rgba(0,240,255,0.3); border-radius: 4px; padding: 36px; }
+  .flow { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .node { font-family: var(--mono); font-size: 13px; letter-spacing: 1px; padding: 10px 16px; border: 1px solid rgba(0,240,255,0.4); border-radius: 3px; color: var(--cyan); background: rgba(0,240,255,0.05); }
+  .arrow { color: var(--magenta); font-family: var(--mono); font-size: 18px; }
+  .meta-note { text-align: center; color: var(--faint); font-family: var(--mono); font-size: 12px; letter-spacing: 1px; margin-top: 22px; }
+
+  table.demo { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 15px; }
+  table.demo th, table.demo td { text-align: left; padding: 16px; border-bottom: 1px solid rgba(177,75,255,0.18); }
+  table.demo th { font-family: var(--mono); color: var(--faint); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; }
+  table.demo td.num { font-family: var(--mono); }
+  .win { color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.6); }
+
+  footer { border-top: 1px solid rgba(177,75,255,0.25); padding: 56px 0 80px; text-align: center; }
+  footer .brand { display: inline-block; margin-bottom: 16px; }
+  footer a { font-family: var(--mono); color: var(--muted); text-decoration: none; margin: 0 14px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+  footer a:hover { color: var(--cyan); }
+  .copy { margin-top: 24px; font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: 2px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">QENT<b>AI</b></span>
+    <span class="nav-links">
+      <a href="#approach">Approach</a>
+      <a href="#engine">Engine</a>
+      <a href="#research">Research</a>
+    </span>
+  </div>
+</nav>
+
+<div class="hero">
+  <video class="hero-video" autoplay loop muted playsinline poster="">
+    <source src="bg.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-bg"></div>
+  <div class="sun"></div>
+  <div class="floor"></div>
+  <div class="hero-content wrap">
+    <span class="badge">Agentic AI research initiative</span>
+    <h1><span class="c">Agentic</span> <span class="m">AI</span></h1>
+    <p class="moto">Intelligence that acts, reasons, and evolves.</p>
+    <p class="sub">We build autonomous agents with every technique that works — toward systems that genuinely advance science and mathematics.</p>
+    <div class="cta">
+      <a class="btn cyan" href="#approach">// what we build</a>
+      <a class="btn mag" href="#research">// our research</a>
+    </div>
+  </div>
+</div>
+
+<section id="approach">
+  <div class="wrap">
+    <span class="eyebrow">// what we build</span>
+    <h2>Autonomous agents, every technique</h2>
+    <p class="lead">We are not married to one method. We build agentic AI with whatever advances the goal — autonomous systems that reason, act, and push real scientific frontiers.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Agentic reasoning</h3>
+        <p>Agents that plan, use tools, critique themselves, and act autonomously over long horizons.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Self-improvement</h3>
+        <p>One of our techniques: agents that refine the very process that generates their future improvements.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Verified discovery</h3>
+        <p>Where it matters, results are checked by proof assistants — discovery you can trust, not just believe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="engine">
+  <div class="wrap">
+    <span class="eyebrow">// the core idea</span>
+    <h2>One recursive loop</h2>
+    <p class="lead">A Task scores solutions. An Agent produces them. A Generator proposes better agents. An Archive keeps the best. A Loop ties them together — and the generator is itself something the engine can improve.</p>
+    <div class="engine">
+      <div class="flow">
+        <span class="node">GENERATOR</span>
+        <span class="arrow">▸</span>
+        <span class="node">CANDIDATE</span>
+        <span class="arrow">▸</span>
+        <span class="node">EVALUATE ▸ SCORE</span>
+        <span class="arrow">▸</span>
+        <span class="node">ARCHIVE</span>
+      </div>
+      <p class="meta-note">↑ the generator improves how it improves — metacognitive self-modification</p>
+    </div>
+
+    <div style="margin-top:64px;">
+      <span class="eyebrow">// first result</span>
+      <h2 style="font-size:clamp(22px,3.5vw,30px);">Adaptive beats fixed</h2>
+      <p class="lead">On a black-box task — the engine sees only scores, never the target — a generator that tunes its own search outperforms a fixed one. The smallest honest proof of self-improvement.</p>
+      <table class="demo">
+        <thead><tr><th>Generator</th><th>Behaviour</th><th>Best score / 200 gen</th></tr></thead>
+        <tbody>
+          <tr><td>Fixed</td><td>constant mutation scale</td><td class="num">−1.12</td></tr>
+          <tr><td class="win">Adaptive</td><td>tunes its own search from feedback</td><td class="num win">−0.06</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <span class="eyebrow">// research</span>
+    <h2>Foundations &amp; publications</h2>
+    <p class="lead">Our work spans recursive self-improvement, automated knowledge discovery, algorithm efficiency, and the type-theoretic foundations that make verified discovery possible. Publications will be listed here as they are released.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">QENT<b>AI</b></span>
+    <div>
+      <a href="#approach">Approach</a>
+      <a href="#engine">Engine</a>
+      <a href="#research">Research</a>
+    </div>
+    <div class="copy">DISCOVER · VALIDATE · IMPROVE · REPEAT — © 2026 QENTAI</div>
+  </div>
+</footer>
+
+</body>
+</html>
