@@ -54,7 +54,12 @@
   .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 10px rgba(0,240,255,0.8); }
 
   .hero { position: relative; min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: .28; filter: saturate(1.4) hue-rotate(280deg) contrast(1.1); mix-blend-mode: screen; }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: .34; filter: saturate(1.6) hue-rotate(285deg) contrast(1.15) brightness(1.05); mix-blend-mode: screen; animation: vidpulse 7s ease-in-out infinite; }
+  @keyframes vidpulse { 0%,100% { opacity:.3; filter: saturate(1.6) hue-rotate(285deg) contrast(1.15); } 50% { opacity:.42; filter: saturate(1.9) hue-rotate(300deg) contrast(1.25); } }
+  .vignette { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: radial-gradient(ellipse 70% 70% at 50% 45%, transparent 40%, rgba(6,1,9,0.85) 100%); }
+  .flicker { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: rgba(177,75,255,0.04); mix-blend-mode: overlay; animation: flick 4s steps(2) infinite; }
+  @keyframes flick { 0%,96%,100% { opacity: .2; } 97% { opacity: .6; } 98% { opacity: .1; } }
   .hero-bg { position: absolute; inset: 0; z-index: 0;
     background:
       radial-gradient(ellipse 60% 50% at 50% 38%, rgba(255,45,149,0.22), transparent 60%),
@@ -81,9 +86,14 @@
 
   .hero-content { position: relative; z-index: 3; }
   .badge { font-family: var(--mono); font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,240,255,0.4); padding: 7px 18px; border-radius: 2px; background: rgba(0,240,255,0.05); }
-  h1 { font-family: var(--display); font-weight: 900; font-size: clamp(38px, 8vw, 88px); line-height: .98; letter-spacing: 2px; margin: 30px 0 0; text-transform: uppercase; }
-  h1 .c { color: var(--cyan); text-shadow: 0 0 18px rgba(0,240,255,0.8), 0 0 40px rgba(0,240,255,0.4); }
-  h1 .m { color: var(--magenta); text-shadow: 0 0 18px rgba(255,45,149,0.9), 0 0 44px rgba(255,45,149,0.5); }
+  h1 { font-family: var(--display); font-weight: 900; font-size: clamp(56px, 15vw, 150px); line-height: .94; letter-spacing: 4px; margin: 26px 0 0; text-transform: uppercase; position: relative; }
+  h1 .c { color: var(--cyan); text-shadow: 0 0 18px rgba(0,240,255,0.8), 0 0 50px rgba(0,240,255,0.5); }
+  h1 .m { color: var(--magenta); text-shadow: 0 0 18px rgba(255,45,149,0.9), 0 0 54px rgba(255,45,149,0.6); }
+  .glitch::before, .glitch::after { content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; opacity: .55; }
+  .glitch::before { color: var(--cyan); animation: gl1 3.2s infinite linear alternate; clip-path: inset(0 0 55% 0); }
+  .glitch::after { color: var(--magenta); animation: gl2 2.6s infinite linear alternate; clip-path: inset(55% 0 0 0); }
+  @keyframes gl1 { 0%,92%,100% { transform: translate(0,0); } 93% { transform: translate(-4px,-2px); } 96% { transform: translate(3px,1px); } }
+  @keyframes gl2 { 0%,90%,100% { transform: translate(0,0); } 91% { transform: translate(4px,2px); } 95% { transform: translate(-3px,-1px); } }
   .moto { font-family: var(--display); font-weight: 500; font-size: clamp(16px,3vw,26px); letter-spacing: 1px; margin: 22px auto 0; color: var(--text); text-shadow: 0 0 16px rgba(177,75,255,0.6); }
   .sub { max-width: 620px; margin: 18px auto 0; color: var(--muted); font-size: clamp(15px,2.3vw,18px); font-weight: 300; letter-spacing: .5px; }
   .cta { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
@@ -123,6 +133,17 @@
   footer a { font-family: var(--mono); color: var(--muted); text-decoration: none; margin: 0 14px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
   footer a:hover { color: var(--cyan); }
   .copy { margin-top: 24px; font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: 2px; }
+
+  .sound-btn { position: fixed; right: 22px; bottom: 22px; z-index: 200; display: flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+    color: var(--cyan); background: rgba(6,1,9,0.8); border: 1px solid var(--cyan); border-radius: 100px; padding: 11px 18px;
+    box-shadow: 0 0 18px rgba(0,240,255,0.35); backdrop-filter: blur(6px); transition: .2s; }
+  .sound-btn:hover { background: var(--cyan); color: #04141a; box-shadow: 0 0 26px rgba(0,240,255,0.7); }
+  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+  .eq span { width: 3px; background: currentColor; height: 4px; animation: eq 0.9s ease-in-out infinite; }
+  .eq span:nth-child(2){ animation-delay:.2s } .eq span:nth-child(3){ animation-delay:.4s } .eq span:nth-child(4){ animation-delay:.1s }
+  @keyframes eq { 0%,100%{ height:4px } 50%{ height:14px } }
+  .sound-btn.paused .eq span { animation-play-state: paused; height: 4px; }
 </style>
 </head>
 <body>
@@ -145,9 +166,11 @@
   <div class="hero-bg"></div>
   <div class="sun"></div>
   <div class="floor"></div>
+  <div class="vignette"></div>
+  <div class="flicker"></div>
   <div class="hero-content wrap">
     <span class="badge">Agentic AI research initiative</span>
-    <h1><span class="c">Agentic</span> <span class="m">AI</span></h1>
+    <h1 class="glitch" data-text="QENTAI"><span class="c">QENT</span><span class="m">AI</span></h1>
     <p class="moto">Intelligence that acts, reasons, and evolves.</p>
     <p class="sub">We build autonomous agents with every technique that works — toward systems that genuinely advance science and mathematics.</p>
     <div class="cta">
@@ -234,6 +257,31 @@
     <div class="copy">DISCOVER · VALIDATE · IMPROVE · REPEAT — © 2026 QENTAI</div>
   </div>
 </footer>
+
+<button class="sound-btn paused" id="soundBtn" aria-label="Toggle music">
+  <span class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+  <span id="soundLabel">Play music</span>
+</button>
+
+<midi-player id="mp" src="music.mid" sound-font loop style="display:none;"></midi-player>
+
+<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.77,npm/@magenta/music@1.23.0/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+<script>
+  (function () {
+    var btn = document.getElementById('soundBtn');
+    var label = document.getElementById('soundLabel');
+    var mp = document.getElementById('mp');
+    var playing = false;
+    btn.addEventListener('click', function () {
+      if (!mp) return;
+      if (playing) { mp.stop(); playing = false; btn.classList.add('paused'); label.textContent = 'Play music'; }
+      else { mp.start(); playing = true; btn.classList.remove('paused'); label.textContent = 'Pause'; }
+    });
+    if (mp) { mp.addEventListener('stop', function () {
+      if (playing && mp.currentTime === 0) return;
+    }); }
+  })();
+</script>
 
 </body>
 </html>
