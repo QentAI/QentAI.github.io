@@ -252,21 +252,19 @@
   (function () {
     var mp = document.getElementById('mp');
     mp.volume = 0.5;
-    function kickstart() {
-      mp.play().catch(function () {});
-      window.removeEventListener('pointerdown', kickstart);
-      window.removeEventListener('keydown', kickstart);
-      window.removeEventListener('scroll', kickstart);
-      window.removeEventListener('mousemove', kickstart);
-      window.removeEventListener('touchstart', kickstart);
+    var events = ['pointerdown', 'click', 'keydown', 'touchstart'];
+
+    function cleanup() {
+      events.forEach(function (e) { window.removeEventListener(e, kickstart); });
     }
-    mp.play().catch(function () {
-      window.addEventListener('pointerdown', kickstart);
-      window.addEventListener('keydown', kickstart);
-      window.addEventListener('scroll', kickstart, { passive: true });
-      window.addEventListener('mousemove', kickstart, { passive: true });
-      window.addEventListener('touchstart', kickstart, { passive: true });
-    });
+    function kickstart() {
+      mp.play().then(cleanup).catch(function () {});
+    }
+    function arm() {
+      events.forEach(function (e) { window.addEventListener(e, kickstart, { passive: true }); });
+    }
+
+    mp.play().then(function () {}).catch(arm);
   })();
 </script>
 
