@@ -270,9 +270,32 @@
     var btn = document.getElementById('soundBtn');
     var label = document.getElementById('soundLabel');
     var mp = document.getElementById('mp');
-    btn.addEventListener('click', function () {
-      if (mp.paused) { mp.play(); btn.classList.remove('paused'); label.textContent = 'Pause'; }
-      else { mp.pause(); btn.classList.add('paused'); label.textContent = 'Play music'; }
+    mp.volume = 0.55;
+
+    function setUI(playing) {
+      if (playing) { btn.classList.remove('paused'); label.textContent = 'Pause'; }
+      else { btn.classList.add('paused'); label.textContent = 'Play music'; }
+    }
+
+    function kickstart() {
+      mp.play().then(function () { setUI(true); }).catch(function () {});
+      window.removeEventListener('click', kickstart);
+      window.removeEventListener('keydown', kickstart);
+      window.removeEventListener('scroll', kickstart);
+      window.removeEventListener('touchstart', kickstart);
+    }
+
+    mp.play().then(function () { setUI(true); }).catch(function () {
+      window.addEventListener('click', kickstart);
+      window.addEventListener('keydown', kickstart);
+      window.addEventListener('scroll', kickstart, { passive: true });
+      window.addEventListener('touchstart', kickstart, { passive: true });
+    });
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (mp.paused) { mp.play(); setUI(true); }
+      else { mp.pause(); setUI(false); }
     });
   })();
 </script>
