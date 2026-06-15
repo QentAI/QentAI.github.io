@@ -223,6 +223,15 @@
   .term-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
   .term-body { padding: 14px 16px; white-space: pre-wrap; color: #cdd9e3; }
   .term-body .k { color: #7cc7ff; } .term-body .c { color: var(--muted); } .term-body .ok { color: var(--green); font-weight: 700; }
+
+  .pub { display: block; margin-top: 28px; padding: 24px; border: 1px solid var(--border); border-radius: 12px;
+    background: rgba(0,229,255,0.04); text-decoration: none; transition: .25s; }
+  .pub:hover { border-color: rgba(0,229,255,0.45); box-shadow: 0 0 30px rgba(0,229,255,0.15); transform: translateY(-3px); }
+  .pub-meta { font-family: var(--mono); font-size: 12px; letter-spacing: 1px; color: var(--green); }
+  .pub-title { font-family: var(--display); font-size: 20px; margin: 8px 0 4px; color: var(--text); }
+  .pub-sub { color: var(--steel); font-size: 14px; }
+  .pub-abs { color: var(--muted); font-size: 14px; margin-top: 12px; line-height: 1.7; }
+  .pub-cue { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: 1px; color: var(--cyan); }
 </style>
 </head>
 <body>
@@ -361,7 +370,14 @@
   <div class="wrap">
     <span class="eyebrow">// formal proofs</span>
     <h2>Foundations &amp; publications</h2>
-    <p class="lead">Our work spans agentic planning, quality-diversity discovery, self-adaptive black-box optimization, and the type-theoretic foundations underlying machine-checked synthesis. Publications will be listed here as they are released.</p>
+    <p class="lead">Our work spans recursive self-improvement, self-adaptive black-box optimization, and the type-theoretic foundations underlying machine-checked synthesis.</p>
+    <a class="pub" href="https://doi.org/10.5281/zenodo.20671179" target="_blank" rel="noopener">
+      <div class="pub-meta">2026 · Zenodo · CC BY 4.0</div>
+      <h3 class="pub-title">From Formal Systems to HoTT and Topos</h3>
+      <div class="pub-sub">Syntax, Foundations, Type-Theoretic Logic, and Internal Truth</div>
+      <p class="pub-abs">Traces how logic develops from foundational formal systems toward type-theoretic and categorical foundations — the constructive substrate behind QentAI's math-verification domain.</p>
+      <span class="pub-cue">View paper (DOI) →</span>
+    </a>
   </div>
 </section>
 
