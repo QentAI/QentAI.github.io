@@ -263,23 +263,17 @@
   <span id="soundLabel">Play music</span>
 </button>
 
-<midi-player id="mp" src="music.mid" sound-font loop style="display:none;"></midi-player>
+<audio id="mp" src="music.mp3" loop preload="auto"></audio>
 
-<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.77,npm/@magenta/music@1.23.0/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
 <script>
   (function () {
     var btn = document.getElementById('soundBtn');
     var label = document.getElementById('soundLabel');
     var mp = document.getElementById('mp');
-    var playing = false;
     btn.addEventListener('click', function () {
-      if (!mp) return;
-      if (playing) { mp.stop(); playing = false; btn.classList.add('paused'); label.textContent = 'Play music'; }
-      else { mp.start(); playing = true; btn.classList.remove('paused'); label.textContent = 'Pause'; }
+      if (mp.paused) { mp.play(); btn.classList.remove('paused'); label.textContent = 'Pause'; }
+      else { mp.pause(); btn.classList.add('paused'); label.textContent = 'Play music'; }
     });
-    if (mp) { mp.addEventListener('stop', function () {
-      if (playing && mp.currentTime === 0) return;
-    }); }
   })();
 </script>
 
