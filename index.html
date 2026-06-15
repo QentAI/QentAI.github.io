@@ -195,6 +195,7 @@
   .card { cursor: pointer; }
   .card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   .card-cue { display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 12px; letter-spacing: 1px; color: var(--cyan); opacity: .7; transition: .2s; }
+  .card-tag { display: inline-block; margin-bottom: 6px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--green); border: 1px solid rgba(43,255,158,0.4); border-radius: 100px; padding: 3px 10px; background: rgba(43,255,158,0.06); }
   .card:hover .card-cue { opacity: 1; transform: translateX(4px); }
 
   .loop-svg { width: 100%; height: auto; max-width: 760px; margin: 6px auto 0; display: block; }
@@ -301,8 +302,9 @@
       </div>
       <div class="card" data-drawer="proofs" tabindex="0" role="button">
         <div class="num">03</div>
+        <span class="card-tag">Roadmap · Phase 1</span>
         <h3>Verified synthesis</h3>
-        <p>Candidates are constrained by a syntax-guided synthesis grammar and discharged against a semantic specification via static analysis and Lean 4 machine-checked proofs, excluding semantically invalid solutions.</p>
+        <p>Planned: in the <code>math_lean</code> domain, candidates will be discharged against a specification and machine-checked by Lean 4 — making the proof itself the engine's unfakeable score. (ROADMAP Phase 1.)</p>
         <span class="card-cue">Explore →</span>
       </div>
     </div>
@@ -480,15 +482,15 @@
         body: 'The mutation scale σ is self-tuned online via the 1/5th success rule (Rechenberg): if recent proposals improve often the search is too timid and σ grows; if they rarely improve σ shrinks, refining near the optimum. The fitness curve (cyan) descends faster than any fixed-σ baseline because the dashed σ curve (green) continuously re-tunes exploration. Implemented in framework/qentai/meta/adaptive.py.'
       },
       proofs: {
-        eyebrow: 'Formal Proofs',
-        title: 'Verified synthesis in Lean 4',
+        eyebrow: 'Formal Proofs · Roadmap Phase 1',
+        title: 'Verified synthesis in Lean 4 (planned)',
         term: '<div class="term"><div class="term-bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>' +
-          '<div class="term-body"><span class="c">-- candidate discharged against spec</span>\n' +
+          '<div class="term-body"><span class="c">-- planned · ROADMAP Phase 1 (math_lean) — target output</span>\n' +
           '<span class="k">theorem</span> synth_correct (n : ℕ) :\n  f n = spec n := <span class="k">by</span>\n' +
           '  <span class="k">induction</span> n <span class="k">with</span>\n  | zero => <span class="k">simp</span> [f, spec]\n' +
           '  | succ k ih => <span class="k">simp</span> [f, spec, ih]\n\n' +
           '<span class="c">⊢ checking goals...</span>\n<span class="ok">Goals accomplished (0 remaining)</span></div></div>',
-        body: 'Every synthesized candidate is constrained by a syntax-guided grammar and discharged against a formal specification. Lean 4 mechanically checks each proof step; only programs whose correctness type-checks are admitted, eliminating semantically invalid (hallucinated) solutions.'
+        body: 'Planned for the math_lean domain (ROADMAP Phase 1). Synthesized candidates will be constrained by a syntax-guided grammar and discharged against a formal specification; Lean 4 will mechanically check each proof step, so only programs whose correctness type-checks are admitted — making the proof the engine\'s unfakeable score. The terminal above shows the target output, not a current result.'
       }
     };
 
