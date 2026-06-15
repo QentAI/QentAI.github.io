@@ -3,26 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>QentAI // agentic AI</title>
-<meta name="description" content="QentAI — an agentic AI research initiative. Autonomous agents that reason, act, and evolve, built with every technique that works, toward systems that genuinely advance science." />
+<title>QentAI // agentic AI research</title>
+<meta name="description" content="QentAI — a research program on agentic systems integrating hierarchical planning, quality-diversity search, and machine-checked formal verification for automated scientific and mathematical discovery." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #04060a;
     --ink: #070b10;
     --cyan: #00e5ff;
     --green: #2bff9e;
-    --text: #c6d3dd;
-    --muted: #6b7b88;
-    --faint: #3c4853;
-    --steel: #8595a3;
+    --text: #d8e4ee;
+    --muted: #94a9ba;
+    --faint: #6477858f;
+    --faint-solid: #647785;
+    --steel: #a7b8c6;
     --grid: rgba(0,229,255,0.13);
-    --border: rgba(96,120,135,0.28);
+    --border: rgba(0,229,255,0.15);
+    --border-soft: rgba(0,229,255,0.08);
     --display: "Orbitron", sans-serif;
-    --body: "Chakra Petch", sans-serif;
-    --mono: "Share Tech Mono", monospace;
+    --body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", "Share Tech Mono", monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -30,27 +32,29 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--body);
-    line-height: 1.7;
+    line-height: 1.8;
+    font-weight: 300;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   body::after {
     content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
-    background: repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.22) 2px 4px);
-    mix-blend-mode: multiply; opacity: .55;
+    background: repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.18) 2px 4px);
+    mix-blend-mode: multiply; opacity: .45;
   }
-  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 2; }
   ::selection { background: var(--cyan); color: #021015; }
 
   nav {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(4,6,10,0.8); backdrop-filter: blur(8px);
+    background: rgba(4,6,10,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .brand { font-family: var(--display); font-weight: 900; font-size: 22px; letter-spacing: 3px; color: var(--cyan); text-shadow: 0 0 12px rgba(0,229,255,0.6); }
-  .brand b { color: var(--green); text-shadow: 0 0 12px rgba(43,255,158,0.55); }
-  .nav-links a { font-family: var(--mono); color: var(--muted); text-decoration: none; margin-left: 26px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: .2s; }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+  .brand { font-family: var(--display); font-weight: 900; font-size: 22px; letter-spacing: 4px; color: var(--cyan); text-shadow: 0 0 14px rgba(0,229,255,0.6); }
+  .brand b { color: var(--green); text-shadow: 0 0 14px rgba(43,255,158,0.55); }
+  .nav-links a { font-family: var(--mono); color: var(--muted); text-decoration: none; margin-left: 28px; font-size: 12.5px; letter-spacing: 1px; transition: .2s; }
   .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 10px rgba(0,229,255,0.7); }
 
   .hero { position: relative; min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
@@ -84,8 +88,8 @@
   @keyframes flick { 0%,96%,100% { opacity: .2; } 97% { opacity: .5; } 98% { opacity: .08; } }
 
   .hero-content { position: relative; z-index: 3; }
-  .badge { font-family: var(--mono); font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,229,255,0.35); padding: 7px 18px; border-radius: 2px; background: rgba(0,229,255,0.04); }
-  h1 { font-family: var(--display); font-weight: 900; font-size: clamp(56px, 15vw, 150px); line-height: .94; letter-spacing: 4px; margin: 26px 0 0; text-transform: uppercase; position: relative; }
+  .badge { font-family: var(--mono); font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,229,255,0.35); padding: 7px 18px; border-radius: 4px; background: rgba(0,229,255,0.04); }
+  h1 { font-family: var(--display); font-weight: 900; font-size: clamp(56px, 15vw, 150px); line-height: 1.1; letter-spacing: 6px; margin: 30px 0 0; text-transform: uppercase; position: relative; }
   h1 .c { color: var(--cyan); text-shadow: 0 0 18px rgba(0,229,255,0.8), 0 0 50px rgba(0,229,255,0.45); }
   h1 .m { color: var(--green); text-shadow: 0 0 18px rgba(43,255,158,0.8), 0 0 50px rgba(43,255,158,0.4); }
   .glitch::before, .glitch::after { content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; opacity: .5; }
@@ -93,45 +97,49 @@
   .glitch::after { color: var(--green); animation: gl2 2.6s infinite linear alternate; clip-path: inset(55% 0 0 0); }
   @keyframes gl1 { 0%,92%,100% { transform: translate(0,0); } 93% { transform: translate(-4px,-2px); } 96% { transform: translate(3px,1px); } }
   @keyframes gl2 { 0%,90%,100% { transform: translate(0,0); } 91% { transform: translate(4px,2px); } 95% { transform: translate(-3px,-1px); } }
-  .moto { font-family: var(--display); font-weight: 500; font-size: clamp(16px,3vw,26px); letter-spacing: 1px; margin: 22px auto 0; color: var(--text); text-shadow: 0 0 16px rgba(0,229,255,0.4); }
-  .sub { max-width: 620px; margin: 18px auto 0; color: var(--muted); font-size: clamp(15px,2.3vw,18px); font-weight: 300; letter-spacing: .5px; }
-  .cta { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .btn { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 14px 30px; border-radius: 2px; transition: .2s; border: 1px solid; }
+  .moto { font-family: var(--display); font-weight: 500; font-size: clamp(15px,3vw,24px); letter-spacing: 1.5px; line-height: 1.4; margin: 26px auto 0; color: var(--text); text-shadow: 0 0 16px rgba(0,229,255,0.4); }
+  .sub { max-width: 660px; margin: 22px auto 0; color: var(--steel); font-size: clamp(15px,2.3vw,17px); font-weight: 300; line-height: 1.8; letter-spacing: .2px; }
+  .cta { margin-top: 44px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-decoration: none; padding: 15px 28px; border-radius: 6px; transition: .25s; border: 1px solid; }
   .btn.cyan { color: var(--cyan); border-color: var(--cyan); background: rgba(0,229,255,0.05); box-shadow: 0 0 18px rgba(0,229,255,0.2), inset 0 0 18px rgba(0,229,255,0.06); }
-  .btn.cyan:hover { background: var(--cyan); color: #021015; box-shadow: 0 0 30px rgba(0,229,255,0.6); }
+  .btn.cyan:hover { background: var(--cyan); color: #021015; box-shadow: 0 0 34px rgba(0,229,255,0.6); transform: translateY(-2px); }
   .btn.alt { color: var(--green); border-color: var(--green); }
-  .btn.alt:hover { background: var(--green); color: #021511; box-shadow: 0 0 30px rgba(43,255,158,0.6); }
+  .btn.alt:hover { background: var(--green); color: #021511; box-shadow: 0 0 34px rgba(43,255,158,0.6); transform: translateY(-2px); }
 
-  section { padding: 90px 0; position: relative; border-top: 1px solid var(--border); }
-  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); }
-  h2 { font-family: var(--display); font-weight: 700; font-size: clamp(26px,4.5vw,42px); letter-spacing: 2px; text-transform: uppercase; margin: 14px 0 16px; }
-  .lead { color: var(--muted); max-width: 700px; font-size: 17px; font-weight: 300; }
+  section { padding: 120px 0; position: relative; border-top: 1px solid var(--border-soft); }
+  .eyebrow { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--green); }
+  h2 { font-family: var(--display); font-weight: 700; font-size: clamp(26px,4.5vw,40px); letter-spacing: 2.5px; line-height: 1.1; text-transform: uppercase; margin: 16px 0 18px; }
+  .lead { color: var(--steel); max-width: 720px; font-size: 17px; font-weight: 300; line-height: 1.8; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 20px; margin-top: 44px; }
-  .card { position: relative; background: linear-gradient(160deg, rgba(96,120,135,0.07), rgba(7,11,16,0.7)); border: 1px solid var(--border); border-radius: 4px; padding: 30px; transition: .25s; overflow: hidden; }
-  .card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--green)); opacity: .5; }
-  .card:hover { transform: translateY(-5px); border-color: var(--cyan); box-shadow: 0 0 30px rgba(0,229,255,0.2); }
-  .card .num { font-family: var(--mono); font-size: 13px; color: var(--cyan); letter-spacing: 2px; }
-  .card h3 { font-family: var(--display); font-weight: 500; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; margin: 14px 0 12px; }
-  .card p { color: var(--muted); font-size: 15px; font-weight: 300; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 22px; margin-top: 48px; }
+  .card { position: relative; background: linear-gradient(135deg, rgba(0,229,255,0.05), rgba(43,255,158,0.02)); border: 1px solid var(--border); border-radius: 10px; padding: 32px; transition: transform .3s ease, border-radius .3s ease, box-shadow .3s ease, border-color .3s ease; overflow: hidden; }
+  .card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--green)); opacity: .55; }
+  .card:hover { transform: translateY(-6px); border-color: rgba(0,229,255,0.45); border-radius: 18px; box-shadow: 0 0 38px rgba(0,229,255,0.18), inset 0 0 24px rgba(0,229,255,0.04); }
+  .card .num { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--cyan); letter-spacing: 2px; }
+  .card h3 { font-family: var(--display); font-weight: 500; font-size: 17px; letter-spacing: 1.2px; line-height: 1.3; text-transform: uppercase; margin: 16px 0 14px; color: var(--text); }
+  .card p { color: var(--muted); font-size: 15px; font-weight: 300; line-height: 1.75; }
 
-  .engine { margin-top: 40px; background: rgba(7,11,16,0.7); border: 1px solid rgba(0,229,255,0.25); border-radius: 4px; padding: 36px; }
+  .engine { margin-top: 44px; background: rgba(7,11,16,0.6); border: 1px solid var(--border); border-radius: 10px; padding: 40px; backdrop-filter: blur(6px); }
   .flow { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
-  .node { font-family: var(--mono); font-size: 13px; letter-spacing: 1px; padding: 10px 16px; border: 1px solid rgba(0,229,255,0.35); border-radius: 3px; color: var(--cyan); background: rgba(0,229,255,0.04); }
+  .node { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 1px; padding: 11px 17px; border: 1px solid rgba(0,229,255,0.35); border-radius: 6px; color: var(--cyan); background: rgba(0,229,255,0.05); }
   .arrow { color: var(--green); font-family: var(--mono); font-size: 18px; }
-  .meta-note { text-align: center; color: var(--faint); font-family: var(--mono); font-size: 12px; letter-spacing: 1px; margin-top: 22px; }
+  .meta-note { text-align: center; color: var(--muted); font-family: var(--mono); font-size: 12.5px; letter-spacing: .8px; margin-top: 24px; }
 
-  table.demo { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 15px; }
-  table.demo th, table.demo td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border); }
-  table.demo th { font-family: var(--mono); color: var(--faint); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; }
-  table.demo td.num { font-family: var(--mono); color: var(--steel); }
-  .win { color: var(--green); text-shadow: 0 0 12px rgba(43,255,158,0.5); }
+  table.demo { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 34px; font-size: 14.5px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-family: var(--mono); }
+  table.demo th, table.demo td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--border-soft); }
+  table.demo thead th { background: rgba(0,229,255,0.06); color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  table.demo tbody td { color: var(--steel); font-weight: 400; }
+  table.demo tbody tr:last-child td { border-bottom: none; }
+  table.demo td.num { font-weight: 500; color: var(--text); text-align: right; }
+  table.demo tr.elite td { background: rgba(43,255,158,0.07); box-shadow: inset 3px 0 0 var(--green); }
+  table.demo tr.elite td, .win { color: var(--green); text-shadow: 0 0 12px rgba(43,255,158,0.5); }
+  sub { font-size: .72em; }
 
-  footer { border-top: 1px solid var(--border); padding: 56px 0 80px; text-align: center; }
-  footer .brand { display: inline-block; margin-bottom: 16px; }
-  footer a { font-family: var(--mono); color: var(--muted); text-decoration: none; margin: 0 14px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+  footer { border-top: 1px solid var(--border); padding: 64px 0 88px; text-align: center; }
+  footer .brand { display: inline-block; margin-bottom: 18px; }
+  footer a { font-family: var(--mono); color: var(--muted); text-decoration: none; margin: 0 14px; font-size: 12.5px; letter-spacing: 1px; }
   footer a:hover { color: var(--cyan); }
-  .copy { margin-top: 24px; font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: 2px; }
+  .copy { margin-top: 26px; font-family: var(--mono); font-size: 12px; color: var(--faint-solid); letter-spacing: 2px; }
 </style>
 </head>
 <body>
@@ -140,9 +148,9 @@
   <div class="wrap">
     <span class="brand">QENT<b>AI</b></span>
     <span class="nav-links">
-      <a href="#approach">Approach</a>
-      <a href="#engine">Engine</a>
-      <a href="#research">Research</a>
+      <a href="#approach">System Architecture</a>
+      <a href="#engine">Optimization Engine</a>
+      <a href="#research">Formal Proofs</a>
     </span>
   </div>
 </nav>
@@ -162,15 +170,15 @@
     <p class="moto">Intelligence that acts, reasons, and evolves.</p>
     <p class="sub">A research program on agentic systems that integrate hierarchical planning, quality-diversity search, and machine-checked formal verification for automated scientific and mathematical discovery.</p>
     <div class="cta">
-      <a class="btn cyan" href="#approach">// what we build</a>
-      <a class="btn alt" href="#research">// our research</a>
+      <a class="btn cyan" href="#approach">→ ACCESS TECHNICAL SPECS</a>
+      <a class="btn alt" href="#research">→ VIEW FORMAL PROOFS</a>
     </div>
   </div>
 </div>
 
 <section id="approach">
   <div class="wrap">
-    <span class="eyebrow">// what we build</span>
+    <span class="eyebrow">// system architecture</span>
     <h2>Autonomous agents, every technique</h2>
     <p class="lead">We treat autonomous discovery as a methods-agnostic problem, combining neuro-symbolic reasoning, evolutionary search, and interactive theorem proving rather than committing to a single paradigm.</p>
     <div class="cards">
@@ -195,7 +203,7 @@
 
 <section id="engine">
   <div class="wrap">
-    <span class="eyebrow">// the core idea</span>
+    <span class="eyebrow">// optimization engine</span>
     <h2>One recursive loop</h2>
     <p class="lead">An elite archive maps candidate agents to niches indexed by behavioral descriptors. A Task assigns each candidate a fitness; a Generator samples archived elites and emits mutated phenotypes; the illumination loop retains the per-niche elite — while the Generator's own variation operators remain subject to optimization.</p>
     <div class="engine">
@@ -212,14 +220,14 @@
     </div>
 
     <div style="margin-top:64px;">
-      <span class="eyebrow">// first result</span>
+      <span class="eyebrow">// empirical result</span>
       <h2 style="font-size:clamp(22px,3.5vw,30px);">Self-adaptive σ outperforms a static scale</h2>
       <p class="lead">On a stochastic black-box landscape — only scalar fitness is observed, never the objective's structure — a generator performing online self-adaptation of its mutation scale (σ) outperforms a fixed exploration scale, consistent with cumulative step-size adaptation in CMA-ES.</p>
       <table class="demo">
-        <thead><tr><th>Generator</th><th>Behaviour</th><th>Best fitness / 200 gen</th></tr></thead>
+        <thead><tr><th>Optimizer</th><th>Adaptation Strategy</th><th>Convergence Fitness (<i>F<sub>max</sub></i>)</th></tr></thead>
         <tbody>
-          <tr><td>Fixed</td><td>static exploration scale σ</td><td class="num">−1.12</td></tr>
-          <tr><td class="win">Adaptive</td><td>online self-adaptation of σ</td><td class="num win">−0.06</td></tr>
+          <tr><td>Static σ</td><td>fixed step-size, no adaptation</td><td class="num">−1.12</td></tr>
+          <tr class="elite"><td>Online Dynamic Covariance</td><td>cumulative step-size adaptation (CSA)</td><td class="num">−0.06</td></tr>
         </tbody>
       </table>
     </div>
@@ -228,7 +236,7 @@
 
 <section id="research">
   <div class="wrap">
-    <span class="eyebrow">// research</span>
+    <span class="eyebrow">// formal proofs</span>
     <h2>Foundations &amp; publications</h2>
     <p class="lead">Our work spans agentic planning, quality-diversity discovery, self-adaptive black-box optimization, and the type-theoretic foundations underlying machine-checked synthesis. Publications will be listed here as they are released.</p>
   </div>
@@ -238,9 +246,9 @@
   <div class="wrap">
     <span class="brand">QENT<b>AI</b></span>
     <div>
-      <a href="#approach">Approach</a>
-      <a href="#engine">Engine</a>
-      <a href="#research">Research</a>
+      <a href="#approach">System Architecture</a>
+      <a href="#engine">Optimization Engine</a>
+      <a href="#research">Formal Proofs</a>
     </div>
     <div class="copy">AUTONOMOUS · AGENTIC · INTELLIGENT — © 2026 QENTAI</div>
   </div>
