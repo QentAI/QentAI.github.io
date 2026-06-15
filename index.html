@@ -357,7 +357,7 @@
     <div style="margin-top:64px;">
       <span class="eyebrow">// empirical result</span>
       <h2 style="font-size:clamp(22px,3.5vw,30px);">Self-adaptive σ outperforms a static scale</h2>
-      <p class="lead">On a stochastic black-box landscape — only scalar fitness is observed, never the objective's structure — a generator performing online self-adaptation of its mutation scale (σ) outperforms a fixed exploration scale, consistent with cumulative step-size adaptation in CMA-ES.</p>
+      <p class="lead">On a 10-D black-box quadratic — only scalar fitness is observed, never the target — a generator that self-tunes its mutation scale σ via the 1/5th success rule (Rechenberg) outperforms a fixed scale. The same <code>Loop</code> and <code>Archive</code> then transfer unchanged to any domain.</p>
       <table class="demo">
         <thead><tr><th>Optimizer</th><th>Adaptation Strategy</th><th>Convergence Fitness (<i>F<sub>max</sub></i>)</th></tr></thead>
         <tbody id="exp-rows"></tbody>
@@ -431,8 +431,8 @@
 <script>
   (function () {
     var EXPERIMENT_DATA = [
-      { optimizer: 'Static σ', strategy: 'fixed step-size, no adaptation', fmax: '−1.12', elite: false },
-      { optimizer: 'Online Dynamic Covariance', strategy: 'cumulative step-size adaptation (CSA)', fmax: '−0.06', elite: true }
+      { optimizer: 'Fixed σ', strategy: 'constant mutation scale (σ = 0.5)', fmax: '−1.12', elite: false },
+      { optimizer: 'Adaptive σ', strategy: 'self-tuned via 1/5th success rule (Rechenberg)', fmax: '−0.06', elite: true }
     ];
     var tb = document.getElementById('exp-rows');
     if (tb) {
@@ -479,7 +479,7 @@
           '<rect x="210" y="28" width="12" height="3" fill="#00e5ff"/><text x="228" y="32" fill="#d8e4ee">fitness (log)</text>' +
           '<rect x="210" y="44" width="12" height="3" fill="#2bff9e"/><text x="228" y="48" fill="#d8e4ee">mutation σ</text></g>' +
           '</svg>',
-        body: 'The mutation scale σ is adapted online via cumulative step-size adaptation (CMA-ES style): σ expands while progress is steady and contracts near optima. The log-scale fitness curve (cyan) descends faster than any fixed-σ baseline because the dashed σ curve (green) continuously re-tunes exploration to the local landscape.'
+        body: 'The mutation scale σ is self-tuned online via the 1/5th success rule (Rechenberg): if recent proposals improve often the search is too timid and σ grows; if they rarely improve σ shrinks, refining near the optimum. The fitness curve (cyan) descends faster than any fixed-σ baseline because the dashed σ curve (green) continuously re-tunes exploration. Implemented in framework/qentai/meta/adaptive.py.'
       },
       proofs: {
         eyebrow: 'Formal Proofs',
