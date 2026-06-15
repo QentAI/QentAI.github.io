@@ -160,7 +160,7 @@
     <span class="badge">Agentic AI research initiative</span>
     <h1 class="glitch" data-text="QENTAI"><span class="c">QENT</span><span class="m">AI</span></h1>
     <p class="moto">Intelligence that acts, reasons, and evolves.</p>
-    <p class="sub">We build autonomous agents with every technique that works — toward systems that genuinely advance science and mathematics.</p>
+    <p class="sub">A research program on agentic systems that integrate hierarchical planning, quality-diversity search, and machine-checked formal verification for automated scientific and mathematical discovery.</p>
     <div class="cta">
       <a class="btn cyan" href="#approach">// what we build</a>
       <a class="btn alt" href="#research">// our research</a>
@@ -172,22 +172,22 @@
   <div class="wrap">
     <span class="eyebrow">// what we build</span>
     <h2>Autonomous agents, every technique</h2>
-    <p class="lead">We are not married to one method. We build agentic AI with whatever advances the goal — autonomous systems that reason, act, and push real scientific frontiers.</p>
+    <p class="lead">We treat autonomous discovery as a methods-agnostic problem, combining neuro-symbolic reasoning, evolutionary search, and interactive theorem proving rather than committing to a single paradigm.</p>
     <div class="cards">
       <div class="card">
         <div class="num">01</div>
-        <h3>Agentic reasoning</h3>
-        <p>Agents that plan, use tools, critique themselves, and act autonomously over long horizons.</p>
+        <h3>Agentic planning &amp; search</h3>
+        <p>Agents decompose goals through hierarchical planning and explore the state space with Monte Carlo Tree Search, scaling solution quality with inference-time compute under an LLM-guided value function.</p>
       </div>
       <div class="card">
         <div class="num">02</div>
-        <h3>Self-improvement</h3>
-        <p>One of our techniques: agents that refine the very process that generates their future improvements.</p>
+        <h3>Recursive meta-optimization</h3>
+        <p>A recursive self-improvement loop in which the agent meta-optimizes its own policies and search heuristics — refining the operators that generate subsequent candidates, not only the candidates themselves.</p>
       </div>
       <div class="card">
         <div class="num">03</div>
-        <h3>Verified discovery</h3>
-        <p>Where it matters, results are checked by proof assistants — discovery you can trust, not just believe.</p>
+        <h3>Verified synthesis</h3>
+        <p>Candidates are constrained by a syntax-guided synthesis grammar and discharged against a semantic specification via static analysis and Lean 4 machine-checked proofs, excluding semantically invalid solutions.</p>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@
   <div class="wrap">
     <span class="eyebrow">// the core idea</span>
     <h2>One recursive loop</h2>
-    <p class="lead">A Task scores solutions. An Agent produces them. A Generator proposes better agents. An Archive keeps the best. A Loop ties them together — and the generator is itself something the engine can improve.</p>
+    <p class="lead">An elite archive maps candidate agents to niches indexed by behavioral descriptors. A Task assigns each candidate a fitness; a Generator samples archived elites and emits mutated phenotypes; the illumination loop retains the per-niche elite — while the Generator's own variation operators remain subject to optimization.</p>
     <div class="engine">
       <div class="flow">
         <span class="node">GENERATOR</span>
@@ -208,18 +208,18 @@
         <span class="arrow">▸</span>
         <span class="node">ARCHIVE</span>
       </div>
-      <p class="meta-note">↑ the generator improves how it improves — metacognitive self-modification</p>
+      <p class="meta-note">↑ the variation operator is itself meta-optimized — recursive adaptation of the search distribution</p>
     </div>
 
     <div style="margin-top:64px;">
       <span class="eyebrow">// first result</span>
-      <h2 style="font-size:clamp(22px,3.5vw,30px);">Adaptive beats fixed</h2>
-      <p class="lead">On a black-box task — the engine sees only scores, never the target — a generator that tunes its own search outperforms a fixed one. The smallest honest proof of self-improvement.</p>
+      <h2 style="font-size:clamp(22px,3.5vw,30px);">Self-adaptive σ outperforms a static scale</h2>
+      <p class="lead">On a stochastic black-box landscape — only scalar fitness is observed, never the objective's structure — a generator performing online self-adaptation of its mutation scale (σ) outperforms a fixed exploration scale, consistent with cumulative step-size adaptation in CMA-ES.</p>
       <table class="demo">
-        <thead><tr><th>Generator</th><th>Behaviour</th><th>Best score / 200 gen</th></tr></thead>
+        <thead><tr><th>Generator</th><th>Behaviour</th><th>Best fitness / 200 gen</th></tr></thead>
         <tbody>
-          <tr><td>Fixed</td><td>constant mutation scale</td><td class="num">−1.12</td></tr>
-          <tr><td class="win">Adaptive</td><td>tunes its own search from feedback</td><td class="num win">−0.06</td></tr>
+          <tr><td>Fixed</td><td>static exploration scale σ</td><td class="num">−1.12</td></tr>
+          <tr><td class="win">Adaptive</td><td>online self-adaptation of σ</td><td class="num win">−0.06</td></tr>
         </tbody>
       </table>
     </div>
@@ -230,7 +230,7 @@
   <div class="wrap">
     <span class="eyebrow">// research</span>
     <h2>Foundations &amp; publications</h2>
-    <p class="lead">Our work spans agentic reasoning, automated knowledge discovery, algorithm efficiency, and the type-theoretic foundations that make verified discovery possible. Publications will be listed here as they are released.</p>
+    <p class="lead">Our work spans agentic planning, quality-diversity discovery, self-adaptive black-box optimization, and the type-theoretic foundations underlying machine-checked synthesis. Publications will be listed here as they are released.</p>
   </div>
 </section>
 
