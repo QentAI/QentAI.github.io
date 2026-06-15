@@ -313,7 +313,7 @@
   <div class="wrap">
     <span class="eyebrow">// optimization engine</span>
     <h2>One recursive loop</h2>
-    <p class="lead">An elite archive maps candidate agents to niches indexed by behavioral descriptors. A Task assigns each candidate a fitness; a Generator samples archived elites and emits mutated phenotypes; the illumination loop retains the per-niche elite — while the Generator's own variation operators remain subject to optimization.</p>
+    <p class="lead">An <code>Archive</code> keeps the top-k agents by score — several, not just the best, so good stepping-stones survive. A <code>Task</code> scores each candidate; a <code>Generator</code> proposes a new agent by mutating top parents; the <code>Loop</code> runs generate → evaluate → select → archive. The twist: the <code>Generator</code> itself is improvable, so the engine can improve how it improves.</p>
     <div class="engine">
       <svg class="loop-svg" viewBox="0 0 800 230" role="img" aria-label="Continuous optimization loop: Generator to Candidate to Evaluate and Score to Archive, feeding back to Generator.">
         <defs>
@@ -333,12 +333,12 @@
         <g class="loop-node">
           <rect x="20" y="42" width="150" height="56" rx="8"></rect>
           <text x="95" y="70" class="ln-t">GENERATOR</text>
-          <text x="95" y="86" class="ln-s">samples elites</text>
+          <text x="95" y="86" class="ln-s">mutates parents</text>
         </g>
         <g class="loop-node">
           <rect x="250" y="42" width="170" height="56" rx="8"></rect>
           <text x="335" y="70" class="ln-t">CANDIDATE</text>
-          <text x="335" y="86" class="ln-s">mutated phenotype</text>
+          <text x="335" y="86" class="ln-s">new agent</text>
         </g>
         <g class="loop-node">
           <rect x="500" y="42" width="170" height="56" rx="8"></rect>
@@ -348,7 +348,7 @@
         <g class="loop-node accent">
           <rect x="325" y="150" width="150" height="56" rx="8"></rect>
           <text x="400" y="178" class="ln-t">ARCHIVE</text>
-          <text x="400" y="194" class="ln-s">per-niche elite</text>
+          <text x="400" y="194" class="ln-s">top-k by score</text>
         </g>
       </svg>
       <p class="meta-note">↑ the variation operator is itself meta-optimized — recursive adaptation of the search distribution</p>
